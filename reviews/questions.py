@@ -1,0 +1,21 @@
+daily = [
+    "Were there any obstacles that hindered my productivity today? How can I overcome them?",
+    "What new things did I learn today?",
+    "Is there anything I found confusing or need to learn more about?",
+    "How did I feel today overall?",
+    "Did anything specific affect my mood today?",
+    "What self-care activities did I do today?",
+    "What type of physical activity did I do today?",
+    "How was my diet today?",
+    "Did I connect with a loved one today? In what way?",
+    "Did I have any important conversations today?",
+    "What steps did I take towards my long-term professional goals today?",
+    "Did I encounter any professional challenges today? How did I handle them?",
+    "What am I grateful for today?",
+    "What was the best part of my day?",
+    "What excited me?",
+    "What drained me of energy?",
+    "What did I learn?",
+    "What are 10 things I'm grateful for?",
+    "How did I push the needle forward?"
+]
