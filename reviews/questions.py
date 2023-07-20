@@ -17,5 +17,5 @@ daily = [
     "What drained me of energy?",
     "What did I learn?",
     "What are 10 things I'm grateful for?",
-    "How did I push the needle forward?"
+    "How did I push the needle forward?",
 ]

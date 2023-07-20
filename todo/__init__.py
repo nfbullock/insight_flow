@@ -6,16 +6,18 @@ import requests
 from . import models
 import secrets
 import config
+import utilities
 
 SYNC_API = "https://api.todoist.com/sync/v9"
 REST_API = "https://api.todoist.com/rest/v2"
 
 
-def _request(url, method, params: dict = None):
+def _request(url, method, params: dict = None, data: dict = None):
     result = getattr(requests, method)(
-        url, 
+        url,
         params=params,
-        headers={"Authorization": f"Bearer {secrets.TODOIST_API_TOKEN}"}
+        headers={"Authorization": f"Bearer {secrets.TODOIST_API_TOKEN}"},
+        json=data,
     )
     result.raise_for_status()
     return result.json()
@@ -30,9 +32,12 @@ def _compare_dates(timestamp):
         return True
     return False
 
+
 def _get_active(dump: bool = True):
     data = []
-    results = _request(f"{REST_API}/tasks", "get", params={"filter": "overdue | today"})
+    results = _request(
+        f"{REST_API}/tasks", "get", params={"filter": "overdue | today"}
+    )
     for row in results:
         task = models.ActiveTask(**row)
         if dump:
@@ -40,20 +45,30 @@ def _get_active(dump: bool = True):
         data.append(task)
     return data
 
+
 def _get_completed():
     matches = []
-    result = _request(f"{SYNC_API}/activity/get", "get", params={"event_type": "completed"})
+    result = _request(
+        f"{SYNC_API}/activity/get", "get", params={"event_type": "completed"}
+    )
     for event in result["events"]:
         if _compare_dates(event["event_date"]):
-           matches.append(event["extra_data"]["content"])
+            matches.append(event["extra_data"]["content"])
     return matches
 
+
+def quick_add():
+    text = input("input: ")
+    _request(f"{REST_API}/tasks", "post", data={"content": text})
+
+
 def review():
-    input("Todo review.  Prest ENTER to proceed")
+    utilities.nag_prompt("Todoist review")
     return {
         "active": _get_active(),
         "completed": _get_completed(),
     }
+
 
 if __name__ == "__main__":
     print(review())

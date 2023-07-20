@@ -11,5 +11,4 @@ class ActiveTask(BaseModel):
     @field_validator("due", mode="before")
     def cast_date(v):
         return v["date"]
-        #return datetime.datetime.strptime(v["date"], "%Y-%m-%d")
-        
+        # return datetime.datetime.strptime(v["date"], "%Y-%m-%d")

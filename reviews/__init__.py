@@ -1,9 +1,11 @@
 from random import shuffle
 
 from . import questions
+import utilities
 
-def review(question_type):
-    prompts = getattr(questions, question_type)
+
+def record_daily():
+    prompts = getattr(questions, "daily")
     shuffle(prompts)
     responses = {}
     for prompt in prompts:
@@ -12,3 +14,6 @@ def review(question_type):
             responses[prompt] = response
     return responses
 
+
+def generate(review_type, metadata):
+    pass
