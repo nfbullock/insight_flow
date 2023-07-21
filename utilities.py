@@ -1,12 +1,15 @@
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import pytz
 
 import config
 
 NOW_LOCAL = datetime.now(pytz.timezone(config.timezone))
+YESTERDAY_LOCAL = NOW_LOCAL - timedelta(days=1)
 TODAY = NOW_LOCAL.date().strftime(config.date_str)
+YESTERDAY = YESTERDAY_LOCAL.date().strftime(config.date_str)
+
 
 
 def date_is_today(timestamp):
@@ -36,6 +39,14 @@ def nag_prompt(message):
         "Press ENTER to proceed..."
     )
 
+def read_data(file_name, json_load=False):
+    if not os.path.isfile(file_name):
+        return {} if json_load else ""
+    with open(file_name, "r") as f:
+        data = f.read()
+    if json_load:
+        return json.loads(data)
+    return data
 
 def write_data(file_name, data):
     with open(file_name, "w") as f:

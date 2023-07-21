@@ -20,15 +20,7 @@ import todo
 import utilities
 
 
-def _collision(_file):
-    prompt = "File exists, overwrite? (Y/n)"
-    return os.path.isfile(_file) and bool(input(prompt) or 0)
-
-
 if __name__ == "__main__":
-    review_file = f"data/{utilities.TODAY}-review.json"
-    if _collision(review_file):
-        sys.exit(0)
     utilities.nag_prompt("Tidy your spaces")
     review = {
         "agenda": agenda.review(),
@@ -44,4 +36,4 @@ if __name__ == "__main__":
         "notes": notes.review(),
         "prompts": reviews.record_daily(),
     }
-    utilities.write_data(review_file, review)
+    reviews.write(review, "today")
