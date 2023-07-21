@@ -14,13 +14,13 @@ class Chat:
         if model_name in self.models:
             del self.models[model_name]
     
-    def submit_prompt(self, model_name, user_prompt, prompt_key):
+    def submit_prompt(self, model_name, prompt, prompt_key):
         if model_name not in self.models:
             print(f"Model '{model_name}' does not exist.")
             return
         
         model = self.models[model_name]
-        model['chat_log'].append(f"user: {user_prompt}\n")
+        model['chat_log'].append(f"user: {prompt}\n")
         model['chat_log'].update(
 
         )
