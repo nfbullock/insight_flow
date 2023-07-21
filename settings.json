@@ -1,0 +1,14 @@
+{
+    "terminal.integrated.enableMultiLinePasteWarning": false,
+    "[python]": {
+        "diffEditor.ignoreTrimWhitespace": false
+    },
+    "files.exclude": {
+        "**/__pycache__": true
+    },
+    "files.autoSave": "onFocusChange",
+    "editor.fontSize": 13,
+    "keyboard.dispatch": "keyCode",
+    "terminal.integrated.copyOnSelection": true,
+    "editor.wordWrap": "on"
+}
