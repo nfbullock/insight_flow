@@ -1,39 +1,54 @@
+import pprint
+import json
+
 import openai
+import pydantic
+import yaml
+
+
+class Context(pydantic.BaseModel):
+    model: str
+    content: dict = {}
+    has_sub_prompts: bool = False
+
 
 class Chat:
     def __init__(self, api_key):
         openai.api_key = api_key
-        self.models = {}
-    
-    def create_model(self, model_name):
-        self.models[model_name] = {
-            'chat_log': {}
-        }
-    
-    def delete_model(self, model_name):
-        if model_name in self.models:
-            del self.models[model_name]
-    
-    def submit_prompt(self, model_name, prompt, prompt_key):
-        if model_name not in self.models:
-            print(f"Model '{model_name}' does not exist.")
-            return
-        
-        model = self.models[model_name]
-        model['chat_log'].append(f"user: {prompt}\n")
-        model['chat_log'].update(
 
+    def create_model(self, chat, model="gpt-4", sub_prompts=False):
+        setattr(self, chat, Context(model=model, has_sub_prompts=sub_prompts))
+
+    def submit_prompt(
+        self,
+        chat,
+        prompt,
+        sub_prompt_key: str = None,
+        load_response: bool = False,
+    ):
+        if not hasattr(self, chat):
+            self.create_model(chat)
+        current_context = getattr(self, chat)
+        """
+        response = openai.ChatCompletion.create(
+            model=current_context.model,
+            messages=prompt,
         )
-        response = openai.Completion.create(
-            engine="davinci-codex",
-            prompt="".join(model['chat_log']),
-            max_tokens=50,
-            temperature=0.7,
-            n=1,
-            stop=None,
-            echo=True
-        )
-        
-        model['chat_log'].append(f"AI: {response.choices[0].text}\n")
-        
-        return response.choices[0].text.strip()
+        content = response["choices"][0]["message"]["content"]
+        """
+        content = "{}"
+        if load_response:
+            content = yaml.safe_load(content)
+        print(current_context)
+        if current_context.has_sub_prompts:
+            current_context.content[sub_prompt_key] = content
+        else:
+            current_context.content = content
+
+
+def system_prompt(text):
+    return {"role": "system", "content": text}
+
+
+def user_prompt(text):
+    return {"role": "user", "content": text}

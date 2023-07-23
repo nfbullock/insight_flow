@@ -11,7 +11,6 @@ TODAY = NOW_LOCAL.date().strftime(config.date_str)
 YESTERDAY = YESTERDAY_LOCAL.date().strftime(config.date_str)
 
 
-
 def date_is_today(timestamp):
     dt = datetime.strptime(timestamp, config.utc_timestamp)
     utc_dt = pytz.UTC.localize(dt)
@@ -39,7 +38,8 @@ def nag_prompt(message):
         "Press ENTER to proceed..."
     )
 
-def read_data(file_name, json_load=False):
+
+def read_data(file_name, json_load=True):
     if not os.path.isfile(file_name):
         return {} if json_load else ""
     with open(file_name, "r") as f:
@@ -47,6 +47,7 @@ def read_data(file_name, json_load=False):
     if json_load:
         return json.loads(data)
     return data
+
 
 def write_data(file_name, data):
     with open(file_name, "w") as f:

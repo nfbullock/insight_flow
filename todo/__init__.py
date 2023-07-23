@@ -57,6 +57,10 @@ def _get_completed():
     return matches
 
 
+def generate():
+    return _get_active()
+
+
 def quick_add():
     text = input("input: ")
     _request(f"{REST_API}/tasks", "post", data={"content": text})

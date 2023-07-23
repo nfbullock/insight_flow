@@ -16,3 +16,20 @@ kidtext_targets = [
         "additional_task": "Please generate a 15-20 minute learning activity focusing on pre-reading, alphabet familiarity, fine motor skills, language development, or basic math skills.",
     },
 ]
+interests = [
+    "philosophy",
+    "creativity",
+    "connection with God",
+    "manliness",
+    "resilience",
+    "emotional maturity",
+    "reading",
+    "spending time outdoors",
+    "fitness",
+]
+goals = [
+    "learning",
+    "software engineering skills",
+    "parenting",
+    "marriage",
+]

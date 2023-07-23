@@ -1,1 +1,0 @@
-How do I work towards wisdom?  Is there a faster way?  Can a daily prompt do that or is it just noise and content?

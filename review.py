@@ -26,7 +26,6 @@ if __name__ == "__main__":
         "agenda": agenda.review(),
         "coder": coder.review(),
         "daily_motif": daily_motif.review(),
-        "eater": eater.review(),
         "faster": faster.review(),
         "gratitude": gratitude.review(),
         "kidtext": kidtext.review(),
