@@ -1,12 +1,13 @@
+import secrets
 from datetime import datetime
-import pytz
 
+import pytz
 import requests
 
-from . import models
-import secrets
 import config
 import utilities
+
+from . import models
 
 SYNC_API = "https://api.todoist.com/sync/v9"
 REST_API = "https://api.todoist.com/rest/v2"

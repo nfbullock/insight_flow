@@ -1,5 +1,5 @@
-import pprint
 import json
+import pprint
 
 import openai
 import pydantic
@@ -29,17 +29,14 @@ class Chat:
         if not hasattr(self, chat):
             self.create_model(chat)
         current_context = getattr(self, chat)
-        """
+        print(f"Prompting {chat}...")
         response = openai.ChatCompletion.create(
             model=current_context.model,
             messages=prompt,
         )
         content = response["choices"][0]["message"]["content"]
-        """
-        content = "{}"
         if load_response:
             content = yaml.safe_load(content)
-        print(current_context)
         if current_context.has_sub_prompts:
             current_context.content[sub_prompt_key] = content
         else:

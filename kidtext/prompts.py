@@ -1,8 +1,10 @@
-As an intelligent AI, my child is {{childs_age}} and our theme today is:
+system = "You are an early child development and parenting expert tasked with generating activities for busy parents."
+user = """
+My child is {{child_age}} and our theme today is:
  title: {{theme['title']}}
  encapsulation: {{theme['extended_encapsulation']}}
 
-please generate an age appropriate analog and using this information, please generate:
+please generate an age appropriate theme analog and using this information create the following:
 
 1. A lesson that's tied to our theme of the day.
 2. An abstract art project idea that fosters creativity.
@@ -14,3 +16,4 @@ please generate an age appropriate analog and using this information, please gen
 8. A parable
 
 Our family is cross-cultural and we are looking to nurture an organic worldview that emphasizes curiosity, STEAM, the heart as the core of one's identity and promotes values such as kindness, love of movement, mother nature, music, creativity, and self-expression.
+"""

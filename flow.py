@@ -1,36 +1,36 @@
-import utilities
-import reviews
-import daily_motif
-import faster
-import gratitude
-import agenda
-import eater
-import marriage
-import kidtext
-import sponsord
-import coder
-import generative_AI
 import secrets
-import todo
 
+import agenda
+import coder
+import eater
+import faster
+import generative_AI
+import gratitude
+import kidtext
+import marriage
+import reviews
+import sponsord
+import theme
+import todo
+import utilities
+import voice
 
 if __name__ == "__main__":
     gai = generative_AI.Chat(secrets.OPEN_AI_TOKEN)
     previous_day = reviews.fetch("yesterday")
-    daily_motif.generate(gai, previous_day)
     fasted_metadata = faster.generate(previous_day)
+    todo_list = todo.generate()
     content = {
-        "theme": gai.theme.content,
-        "gratitude": gratitude.generate(gai),
-        "previous_day": reviews.generate_yesterday(gai, previous_day),
-        # "agenda": agenda.generate(gai, previous_day),
-        "todo": todo.generate(),
+        "theme": theme.generate(gai, previous_day),
+        "reviews": reviews.generate_yesterday(gai, previous_day),
+        "agenda": agenda.generate(gai, todo_list),
+        "gratitude": gratitude.generate(gai, todo_list),
+        "todo": todo_list,
         "faster": fasted_metadata,
         "eater": eater.generate(gai, fasted_metadata),
         "marriage": marriage.generate(gai),
         "kidtext": kidtext.generate(gai),
         "sponsord": sponsord.generate(gai),
-        "coder": coder.generate(gai),
-        "wisdom": wisdom.generate(gai, previous_day),
+        "voice": voice.generate(gai),
     }
-    utilities.write_data(content_file, content)
+    utilities.write_data(f"data/{utilities.TODAY}-flow.json", content)

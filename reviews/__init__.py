@@ -1,10 +1,12 @@
+import pprint
 from random import shuffle
 
-from . import prompts, questions
-import generative_AI
 import config
+import generative_AI
 import template
 import utilities
+
+from . import prompts, questions
 
 FILES = {
     "today": f"data/{utilities.TODAY}-review.json",
@@ -29,9 +31,8 @@ def fetch(review_type):
 
 
 def generate_yesterday(gai, previous_metadata):
-    print(gai.__dict__)
     gai.create_model("reviews", sub_prompts=True)
-    print(gai.__dict__)
+    previous_metadata["theme"] = gai.theme.content
     user_prompts_text = {
         "tasks": template.generate(prompts.tasks, params=previous_metadata),
         "micro_journals": template.generate(
@@ -47,13 +48,24 @@ def generate_yesterday(gai, previous_metadata):
             params={
                 "interests": config.interests,
                 "goals": config.goals,
-                "theme": gai.theme,
+                "theme": gai.theme.content,
             },
         )
     )
     for name, text in user_prompts_text.items():
         _prompt = [system_prompt, generative_AI.user_prompt(text)]
         gai.submit_prompt("reviews", _prompt, sub_prompt_key=name)
+    metadata_prompt_text = template.generate(
+        prompts.metadata, params={"reviews": gai.reviews.content}
+    )
+    metadata_prompt = [generative_AI.user_prompt(metadata_prompt_text)]
+    gai.submit_prompt(
+        "reviews",
+        metadata_prompt,
+        sub_prompt_key="metadata",
+        load_response=True,
+    )
+    return gai.reviews.content
 
 
 def write(data, review_type):

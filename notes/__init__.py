@@ -1,4 +1,5 @@
 import os
+
 import pytz
 
 import config
@@ -49,8 +50,10 @@ def quick_add():
 
 
 def review():
-    utilities.nag_prompt("Obsidian review")
-    return {"files_modified_today": _get_modified_files()}
+    utilities.nag_prompt(
+        "Obsidian review, make sure and open your phone to ensure a sync happens"
+    )
+    return _get_modified_files()
 
 
 if __name__ == "__main__":

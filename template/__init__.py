@@ -1,8 +1,7 @@
-from jinja2 import Environment, FileSystemLoader, BaseLoader
-import os
-
 import os
 from pathlib import Path
+
+from jinja2 import BaseLoader, Environment, FileSystemLoader
 
 _PATH = Path(os.path.dirname(os.path.realpath(__file__)))
 FILE_LOADER = FileSystemLoader(searchpath=_PATH.parent)
@@ -36,4 +35,5 @@ def generate_from_file(template_file, params):
 def generate(template, params):
     environment = Environment(loader=BaseLoader)
     template = environment.from_string(template)
-    return template.render(**params)
+    result = template.render(**params)
+    return result

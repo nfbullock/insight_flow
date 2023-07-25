@@ -2,7 +2,7 @@ DEFAULT_FAST = "16:8"
 
 
 def generate(review_metadata: dict):
-    return DEFAULT_FAST
+    return {"type": DEFAULT_FAST, "diet": "ketobiotic"}
 
 
 def review():

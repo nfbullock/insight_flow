@@ -1,3 +1,4 @@
+import json
 import os
 from datetime import datetime, timedelta
 
@@ -51,4 +52,4 @@ def read_data(file_name, json_load=True):
 
 def write_data(file_name, data):
     with open(file_name, "w") as f:
-        json.dump(data, f, sort_keys=True, indent=True)
+        json.dump(data, f, sort_keys=False, indent=True)

@@ -1,34 +1,54 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>{{ title }}</title>
-  <style>
-    @media print {
-        @page {
-            size: auto;   /* auto is the initial value */
-            margin: 0;  /* this affects the margin in the printer settings */
-        }
-        html, body {
-            width: 210mm;
-            height: 297mm;        
-        }
-    }
-    body {
-      font-family: Arial, sans-serif;
-    }
-    .content {
-      margin: 10mm;
-    }
-  </style>
+  <title>Insight Flow</title>
 </head>
 <body>
   <div class="content">
-    <h1>{{ title }}</h1>
+    <h1>Theme of the day</h1>
+    <h3>{{ theme["title"] }}</h3>
+    <h4>description</h4>
+    <p>{{ theme["description"] }}</p>
+    <h4>corollary</h4>
+    <p>{{ theme["corollary"] }}</p>
+  </div>
+  <div class="content">
+    <h1>TODO</h1>
     <table>
-      {% for item in to_do %}
+      {% for item in todo %}
       <tr><td>{{ item }}</td></tr>
       {% endfor %}
     </table>
   </div>
+  <div class="content">
+  <h2>Understanding your Agenda</h2>
+  <h3>Alignments</h3>
+  <p>{{agenda["alignment"]}}</p>
+  <h3>Motivations</h3>
+  <p>{{agenda["motivation"]}}</p>
+  </div>
+  <div class="content">
+  <h2>Yesterday</h2>
+  <h3>tasks</h3>
+  <p>{{reviews["tasks"]}}</p>
+  <h3>micro_journals</h3>
+  <p>{{reviews["micro_journals"]}}</p>
+  <h3>reflection</h3>
+  <p>{{reviews["reflection"]}}</p>
+  </div>
+  <div class="content">
+  <h1>Kids</h1>
+  <h2>Dahlia</h2>
+  <p>{{kidtext["D"]}}</p>
+  <h2>Xander</h2>
+  <p>{{kidtext["X"]}}</p>
+  </div>
+  
+  {% for name, text in content.items() %}
+  <div class="content">
+    <h1>{{ name }}</h1>
+    <p>{{ text }}</p>
+  </div>
+  {% endfor %}
 </body>
 </html>
