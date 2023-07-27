@@ -2,7 +2,6 @@ import datetime
 import json
 import os
 
-import daily_motif
 import pytz
 
 import agenda
@@ -17,6 +16,7 @@ import notes
 import reviews
 import sponsord
 import todo
+import theme
 import utilities
 
 if __name__ == "__main__":
@@ -24,7 +24,7 @@ if __name__ == "__main__":
     review = {
         "agenda": agenda.review(),
         "coder": coder.review(),
-        "daily_motif": daily_motif.review(),
+        "theme": theme.review(),
         "faster": faster.review(),
         "gratitude": gratitude.review(),
         "kidtext": kidtext.review(),

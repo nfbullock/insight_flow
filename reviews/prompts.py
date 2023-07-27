@@ -62,3 +62,20 @@ files edited in my 'Second Brain':
 
 Beyond patterns of productivity and procrastination, recognize that these are the tangible traces of my day’s journey. They hold the potential to reveal insights about my priorities, interests, challenges, and the alignment of these actions with my chosen theme of the day.
 """
+dynamic_reflections = """
+You are an expert at reflective journaling and human psychology.  Taking the following metadata into account, generate 10 journal prompts that can be answered in a few sentences OR more
+
+{{ metadata }}
+
+I am already asking the following questions please try to avoid generating any questions that would be duplicating the same sentiment:
+{% for question in questions %}
+- {{ question }}
+{% endfor %}
+
+please output your response in utf-8 encoded JSON as a list, e.g.
+[
+    "question 1",
+    "question 2",
+    ...
+]
+"""

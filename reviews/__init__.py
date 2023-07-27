@@ -1,10 +1,12 @@
 import pprint
 from random import shuffle
+import json
 
 import config
 import generative_AI
 import template
 import utilities
+import secrets
 
 from . import prompts, questions
 
@@ -14,8 +16,18 @@ FILES = {
 }
 
 
+def _generate_dynamic_prompts(questions):
+    with open(f"data/{utilities.TODAY}-flow.json") as f:
+        content = json.load(f)
+    metadata = content["reviews"]["metadata"]
+    gai = generative_AI.Chat(secrets.OPEN_AI_TOKEN)
+    user_prompt_text = template.generate(prompts.dynamic_reflections, params={"metadata": metadata, "questions": questions})
+    gai.submit_prompt("questions", [generative_AI.user_prompt(user_prompt_text)], load_response=True)
+    return gai.questions.content + questions
+
+
 def record_daily():
-    prompts = getattr(questions, "daily")
+    prompts = _generate_dynamic_prompts(questions.daily)
     shuffle(prompts)
     responses = {}
     for prompt in prompts:
