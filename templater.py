@@ -5,7 +5,7 @@ from markupsafe import escape
 import template
 import utilities
 
-FILE = "data/20230726-flow.json"
+FILE = "data/20230727-flow.json"
 
 
 def str_to_html_secure(input_str):
@@ -27,7 +27,6 @@ with open(FILE) as f:
 sorted_todo = sorted(
     content.pop("todo"), key=lambda item: item["priority"], reverse=True
 )
-
 
 params = {
     "theme": cast_strings_in_dict(content.pop("theme")),
